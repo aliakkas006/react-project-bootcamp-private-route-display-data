@@ -3,7 +3,8 @@ import { useParams } from 'react-router-dom';
 
 const ServiceDetail = () => {
     const {id} = useParams();
-    const [data , setData] = useState([]);
+    const [data, setData] = useState([]);
+    
     useEffect(()=>{
         fetch('/fakeData.json')
         .then(res => res.json())

@@ -1,9 +1,22 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import BannerImage from '../../../images/aboutImage.jpg'
 
 const Login = () => {
-    const {googleSignIn} = useAuth();
+    const { googleSignIn } = useAuth();
+
+    const location = useLocation();
+    const history = useHistory();
+
+    const redirect_ui = location?.state?.from || '/';
+
+    // Redirect user after sign in
+    const handleGoogleSignIn = () => {
+        googleSignIn()
+            .then(result => history.push(redirect_ui));
+    }
+    
     return (
         <div className=" container">
             <div className="row align-items-center" style={{ height: "100vh" }}>
@@ -20,7 +33,7 @@ const Login = () => {
                         <label htmlFor="" className="text-danger">Forgot your password?</label>
                     </div>
                     <div className="from-group mt-5">
-                        <button onClick={googleSignIn} className="btn btn-primary" >Google Sign in</button>
+                        <button onClick={handleGoogleSignIn} className="btn btn-primary" >Google Sign in</button>
                     </div>
                 </div>
                 <div className="col-md-6 d-none d-md-block">
